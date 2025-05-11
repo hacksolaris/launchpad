@@ -1,0 +1,11 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+      "dev": "dotnet watch run --project ./api.csproj", 
+      "build": "dotnet build ./api.csproj -c Release",
+      "clean": "dotnet clean ./api.csproj" 
+    },
+    "devDependencies": {}
+  }
