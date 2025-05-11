@@ -4,6 +4,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -12,7 +17,9 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 }
 
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
+
+app.UseCors("AllowAllOrigins");
 
 var summaries = new[]
 {
@@ -21,7 +28,7 @@ var summaries = new[]
 
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
@@ -32,6 +39,21 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+int counter = 0;
+
+app.MapGet("/counter", () =>
+{
+    return Results.Ok(new { count = counter });
+}).WithName("GetCounter").WithOpenApi();
+
+app.MapPost("/counter/increment", () =>
+{
+    counter++;
+    return Results.Ok(new { count = counter });
+})
+.WithName("IncrementCounter")
+.WithOpenApi();
 
 app.Run();
 
