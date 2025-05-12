@@ -1,4 +1,8 @@
+![image](https://github.com/user-attachments/assets/70173859-6e9f-4e24-99fb-e4f28c4a1d35)
+
 # Launchpad
+
+**⚠️ WIP ⚠️**
 
 This project is the backbone of the Solaris Hackathon, designed to provide participants with on-demand, free AWS compute instances. Our goal is to empower our hackers to build, innovate, and experiment without the barrier of infrastructure costs or complex cloud setup during the hackathon.
 
